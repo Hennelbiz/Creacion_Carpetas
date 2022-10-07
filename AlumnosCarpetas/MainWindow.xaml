@@ -1,0 +1,73 @@
+﻿<Window x:Class="AlumnosCarpetas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlumnosCarpetas"
+        mc:Ignorable="d"
+        Title="Carpetas" Height="350" Width="550">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Command="{Binding ObtenerDirectorioCommand}">Seleccionar ruta</Button>
+        <TextBox Text="{Binding RutaDirectorio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="False"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="2"/>
+
+        <Label Content="Formato Nombre"
+               Grid.Row="1"/>
+        <RadioButton Content="Nombre(s) | Apellido Paterno | Apellido Materno"
+                     IsChecked="{Binding FormatoNombre1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="2"
+                     GroupName="FORMATONOMBRE"/>
+        <RadioButton Content="Apellido Materno | Apellido Paterno | Nombre(s)"
+                     IsChecked="{Binding FormatoNombre2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="2"
+                     GroupName="FORMATONOMBRE"/>
+        <Button Grid.Row="3" Grid.Column="1" Command="{Binding LecturaArchivoCSVCommand}">Abrir archivo</Button>
+        <Button Grid.Row="3" Grid.Column="2" Command="{Binding GenerarCarpetasCommand}">Generar Carpetas</Button>
+
+        <Grid Grid.Row="4"
+              Grid.ColumnSpan="3"
+              Background="Black">
+            <DataGrid ItemsSource="{Binding Items}"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre 1"
+                                        Binding="{Binding PrimerNombre}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Nombre 2"
+                                        Binding="{Binding SegundoNombre}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Apellido Paterno"
+                                        Binding="{Binding ApellidoPaterno}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Apellido Materno"
+                                        Binding="{Binding ApellidoMaterno}"
+                                        Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
